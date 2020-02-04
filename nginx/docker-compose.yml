@@ -1,0 +1,21 @@
+version: "3.5"
+
+networks:
+  edge:
+    name: "edge"
+
+services:
+  edge-letsencrypt:
+    image: "linuxserver/letsencrypt:latest"
+    container_name: "edge-letsencrypt"
+    cap_add:
+      - "NET_ADMIN"
+    networks:
+      - "edge"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./edge-letsencrypt/config:/config"
+    environment:
+      VALIDATION: "http"
